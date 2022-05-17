@@ -3,10 +3,11 @@ import { Button, Item, Label, Segment } from 'semantic-ui-react';
 import { Activity } from '../../../app/models/activity';
 
 type ActivityList = {
-    activities : Activity[]
+    activities : Activity[];
+    selectActivity: (id : string) => void;
 }
 
-const ActivityList = ({activities} : ActivityList) => {
+const ActivityList = ({activities, selectActivity} : ActivityList) => {
     return (
         <Segment>
             <Item.Group divided>
@@ -20,7 +21,7 @@ const ActivityList = ({activities} : ActivityList) => {
                                 <div>{activity.city}, {activity.venue}</div>
                             </Item.Description>
                             <Item.Extra>
-                                <Button floated='right' content='View' color='blue' />
+                                <Button floated='right' content='View' color='blue' onClick={() => selectActivity(activity.id)}/>
                                 <Label basic content={activity.category} />
                             </Item.Extra>
                         </Item.Content>

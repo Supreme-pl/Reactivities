@@ -1,29 +1,31 @@
 import React from 'react';
-import { Card, Icon, Image } from 'semantic-ui-react';
+import { Button, Card, Icon, Image } from 'semantic-ui-react';
 import { Activity } from '../../../app/models/activity';
 
 type ActivityDetails = {
-    activity: Activity
+    activity: Activity;
+    cancelSelectActivity: () => void;
+    openForm: (id: string) => void;
 }
 
-const ActivityDetails = ({activity} : ActivityDetails) => {
+const ActivityDetails = ({activity, cancelSelectActivity, openForm} : ActivityDetails) => {
     return (
         <Card>
-            <Image src={`/assets/categoryItems/${activity}`} />
+            <Image src={`/assets/categoryImages/${activity.category}.jpg`} />
             <Card.Content>
-                <Card.Header>Matthew</Card.Header>
+                <Card.Header>{activity.title}</Card.Header>
                 <Card.Meta>
-                    <span className='date'>Joined in 2015</span>
+                    <span className='date'>{activity.date}</span>
                 </Card.Meta>
                 <Card.Description>
-                    Matthew is a musician living in Nashville.
+                    {activity.description}
                 </Card.Description>
             </Card.Content>
             <Card.Content extra>
-                <a>
-                    <Icon name='user' />
-                    22 Friends
-                </a>
+                <Button.Group widths='2'>
+                    <Button basic color='blue' content='Edit' onClick={() => openForm(activity.id)} />
+                    <Button basic color='grey' content='Cancel' onClick={cancelSelectActivity} />
+                </Button.Group>
             </Card.Content>
         </Card>
     )
